@@ -7,12 +7,14 @@ pipeline {
   }
   stages {
     stage('build and test') {
-      environment {
-        M2 = '/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/Maven_3_6_2/bin'
-      }
       steps {
         tool 'Maven_3_6_2'
-        sh '''$M2/mvn -Dmaven.test.failure.ignore clean package
+        sh '''
+            export M2_HOME=/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/Maven_3_6_2
+            export M2=$M2_HOME/bin
+            export PATH=$M2:$PATH
+            mvn -Dmaven.test.failure.ignore clean package
+
 '''
       }
     }
