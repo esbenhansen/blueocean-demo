@@ -29,7 +29,18 @@ pipeline {
         stage('publish') {
           steps {
             unstash 'testreport'
-            archiveArtifacts(artifacts: 'target/*.jar', onlyIfSuccessful: true, fingerprint: true)
+            rtUpload (
+              serverId: 'local_artifactory',
+              spec: '''{
+                        "files": [
+                          {
+                            "pattern": "target/*.jar",
+                            "target": "bazinga-repo/froggy-files/"
+                          }
+                       ]
+                  }'''
+              )
+
           }
         }
       }
