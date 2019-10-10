@@ -17,8 +17,8 @@ pipeline {
         stash(name: 'testreport', includes: '**/target/surefire-reports/TEST-*.xml,target/*.jar')
       }
     }
-    stage('copy artifacts') { 
-      parallel {   
+    stage('copy artifacts') {
+      parallel {
         stage('report') {
           steps {
             unstash 'testreport'
@@ -28,7 +28,7 @@ pipeline {
         stage('publish') {
           steps {
             unstash 'testreport'
-
+            archiveArtifacts(artifacts: 'target/*.jar', onlyIfSuccessful: true, fingerprint: true)
           }
         }
       }
