@@ -14,6 +14,13 @@ pipeline {
         tool 'Maven_3_6_2'
         sh '''$M2/mvn -Dmaven.test.failure.ignore clean package
 '''
+        stash(name: 'testreport', includes: '**/target/surefire-reports/TEST-*.xml')
+      }
+    }
+    stage('report') {
+      steps {
+        unstash 'testreport'
+        junit '**/target/surefire-reports/TEST-*.xml'
       }
     }
   }
