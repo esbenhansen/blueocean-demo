@@ -17,17 +17,19 @@ pipeline {
         stash(name: 'testreport', includes: '**/target/surefire-reports/TEST-*.xml,target/*.jar')
       }
     }
-    parallel {   
-      stage('report') {
-        steps {
-          unstash 'testreport'
-          junit '**/target/surefire-reports/TEST-*.xml'
+    stage { 
+      parallel {   
+        stage('report') {
+          steps {
+            unstash 'testreport'
+            junit '**/target/surefire-reports/TEST-*.xml'
+          }
         }
-      }
-      stage('publish') {
-        steps {
-          unstash 'testreport'
-          
+        stage('publish') {
+          steps {
+            unstash 'testreport'
+
+          }
         }
       }
     }
