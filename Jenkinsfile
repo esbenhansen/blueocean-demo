@@ -18,18 +18,18 @@ pipeline {
       }
     }
     parallel {   
-    stage('report') {
-      steps {
-        unstash 'testreport'
-        junit '**/target/surefire-reports/TEST-*.xml'
+      stage('report') {
+        steps {
+          unstash 'testreport'
+          junit '**/target/surefire-reports/TEST-*.xml'
+        }
       }
-    }
-    stage('publish') {
-      steps {
-        unstash 'testreport'
-        
+      stage('publish') {
+        steps {
+          unstash 'testreport'
+          # local_artifactory
+        }
       }
-    }
     }
   }
-}local_artifactory
+}
