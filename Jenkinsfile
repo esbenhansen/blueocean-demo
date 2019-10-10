@@ -21,7 +21,6 @@ pipeline {
       parallel {
         stage('report') {
           steps {
-            tool 'local_artifactory'
             unstash 'testreport'
             junit '**/target/surefire-reports/TEST-*.xml'
           }
