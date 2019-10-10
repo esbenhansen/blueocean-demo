@@ -17,7 +17,7 @@ pipeline {
         stash(name: 'testreport', includes: '**/target/surefire-reports/TEST-*.xml,target/*.jar')
       }
     }
-    stage { 
+    stage('copy artifacts') { 
       parallel {   
         stage('report') {
           steps {
