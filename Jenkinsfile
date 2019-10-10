@@ -27,7 +27,7 @@ pipeline {
       stage('publish') {
         steps {
           unstash 'testreport'
-          # local_artifactory
+          
         }
       }
     }
